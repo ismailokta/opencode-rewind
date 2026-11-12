@@ -125,7 +125,7 @@ function installUI(ctx, rpc) {
         catch { return { status: 'unavailable' }; }
       }));
       const options = messages.map((message, index) => ({
-        title: `${checkpoints[index]?.status === 'available' ? '◆ ' : '  '}${(message.text || '(empty prompt)').replace(/\s+/g, ' ').trim().slice(0, 120)}`,
+        title: `${checkpoints[index]?.status === 'available' ? '◆ ' : '○ '}${(message.text || '(empty prompt)').replace(/\s+/g, ' ').trim().slice(0, 120)}`,
         value: index,
       })).reverse();
       // Close the picker before showing a confirmation or preview dialog.
@@ -134,7 +134,7 @@ function installUI(ctx, rpc) {
         try { await fn(value); } catch (error) { await failure(error); }
         if (reopen) await open();
       };
-      const selection = dialog.select({ title: 'Rewind · ◆ file checkpoint', placeholder: 'Search prompts', options, actions: [
+      const selection = dialog.select({ title: 'Rewind · ◆ snapshot · ○ no snapshot', placeholder: 'Search prompts', options, actions: [
         { bind: 'ctrl+d', title: 'Delete snapshot', onTrigger: action(index => deleteSnapshot(sid, messages[index]), true) },
         { bind: 'ctrl+x', title: 'Clear all snapshots', selection: 'none', onTrigger: action(() => clearSnapshots(sid), true) },
         { bind: 'ctrl+z', title: 'Undo rewind', selection: 'none', onTrigger: action(() => undo(sid)) },

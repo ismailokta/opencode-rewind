@@ -54,6 +54,7 @@ uiTest('file preview requires confirmation and stages before finishing', async (
   const h = await harness(); await h.run();
   assert.deepEqual(h.sizes, ['large']);
   assert.match(h.events[0][1], /◆/);
+  assert.match(h.options().options[0].title, /^◆ /);
   for (const name of ['new', 'old', 'edit']) assert.match(h.confirmations[0].message, new RegExp(name));
   assert.deepEqual(h.events.slice(1), ['begin', ['stage', 's', 'm', false], 'finish']);
   assert.equal(h.toasts[0].variant, 'success');
@@ -64,6 +65,7 @@ uiTest('file preview requires confirmation and stages before finishing', async (
 uiTest('unavailable prompt remains selectable with conversation-only confirmation', async () => {
   const h = await harness(); h.rpc.checkpoint = async () => ({ status: 'unavailable', reason: 'unknown' }); await h.run();
   assert.doesNotMatch(h.events[0][1], /◆/);
+  assert.match(h.options().options[0].title, /^○ /);
   assert.match(h.confirmations[0].message, /Files will not change/);
   assert.deepEqual(h.events.slice(1), [['stage', 's', 'm', false]]);
 });
