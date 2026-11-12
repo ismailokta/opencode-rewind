@@ -1,0 +1,9 @@
+{
+  "name": "opencode-rewind",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {".": "./src/server.js", "./tui": "./src/tui.js"},
+  "peerDependencies": {"@opencode/plugin": "^2.2.7"},
+  "scripts": {"test": "node --experimental-vm-modules --test test/*.test.js"}
+}
