@@ -26,7 +26,7 @@ sequenceDiagram
     Plugin-->>TUI: Show file changes
     User->>TUI: Confirm
     TUI->>Plugin: Apply rewind
-    Plugin->>Git: Restore files; keep undo snapshot
+    Plugin->>Git: Restore files and keep undo snapshot
 
     User->>TUI: Delete session
     TUI->>Plugin: session.deleted event
